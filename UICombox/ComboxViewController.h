@@ -1,0 +1,13 @@
+//
+//  ComboxViewController.h
+//  UICombox
+//
+//  Created by Ralbatr on 14-3-17.
+//  Copyright (c) 2014年 Ralbatr. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface ComboxViewController : UIViewController
+
+@end
