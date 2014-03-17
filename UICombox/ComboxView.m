@@ -36,6 +36,7 @@
         
         _textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 30)];
         _textField.borderStyle=UITextBorderStyleRoundedRect;//设置文本框的边框风格
+        _textField.inputView=[[UIView alloc]initWithFrame:CGRectZero];
         [_textField addTarget:self action:@selector(dropdown) forControlEvents:UIControlEventAllTouchEvents];
         [self addSubview:_textField];
         
@@ -43,7 +44,7 @@
     return self;
 }
 -(void)dropdown{
-    [_textField resignFirstResponder];
+//    [_textField resignFirstResponder];
     if (showList) {//如果下拉框已显示，什么都不做
         return;
     }else {//如果下拉框尚未显示，则进行显示
@@ -117,5 +118,11 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+//{
+//    return NO;
+//}
+
 
 @end
