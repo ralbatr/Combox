@@ -26,32 +26,44 @@
     if(self){
         showList = NO; //默认不显示下拉框
         
-        _dropTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, frame.size.width, 0)];
-        _dropTableView.delegate = self;
-        _dropTableView.dataSource = self;
-//        _dropTableView.backgroundColor = [UIColor grayColor];
-//        _dropTableView.separatorColor = [UIColor lightGrayColor];
-        _dropTableView.hidden = YES;
-        [self addSubview:_dropTableView];
+        [self creatTableView:frame];
         
         _textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 30)];
         _textField.borderStyle=UITextBorderStyleRoundedRect;//设置文本框的边框风格
         _textField.inputView=[[UIView alloc]initWithFrame:CGRectZero];
-        [_textField addTarget:self action:@selector(dropdown) forControlEvents:UIControlEventAllTouchEvents];
+        _textField.delegate = self;
         [self addSubview:_textField];
         
     }
     return self;
 }
+
+- (void)creatTableView:(CGRect)frame
+{
+    _dropTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, frame.size.width, 0)];
+    _dropTableView.delegate = self;
+    _dropTableView.dataSource = self;
+    _dropTableView.hidden = YES;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    [self dropdown];
+    return NO;
+}
+
 -(void)dropdown{
-//    [_textField resignFirstResponder];
-    if (showList) {//如果下拉框已显示，什么都不做
+
+    if (showList)
+    {//如果下拉框已显示，什么都不做
         return;
-    }else {//如果下拉框尚未显示，则进行显示
+    }
+    else
+    {//如果下拉框尚未显示，则进行显示
         
         CGRect sf = self.frame;
         sf.size.height = frameHeight;
-        
+        [self addSubview:_dropTableView];        
         //把dropdownList放到前面，防止下拉框被别的控件遮住
         [self.superview bringSubviewToFront:self];
         _dropTableView.hidden = NO;
@@ -111,6 +123,8 @@
     CGRect frame = _dropTableView.frame;
     frame.size.height = 0;
     _dropTableView.frame = frame;
+    //选择完后，移除
+    [_dropTableView removeFromSuperview];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -118,11 +132,6 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
-//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-//{
-//    return NO;
-//}
 
 
 @end
