@@ -52,6 +52,14 @@
     return NO;
 }
 
+- (void)closeTableView
+{
+    if (showList) {
+        self.hidden = YES;
+        NSLog(@"在选择状态");
+    }
+}
+
 -(void)dropdown{
 
     if (showList)
